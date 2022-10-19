@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import Linear_models_CK
 
 def main():
     df = pd.read_csv('USA_Housing.csv')
@@ -17,11 +18,25 @@ def main():
 
     lr = [0.001,0.01,0.1,1]
 
-    from sklearn.linear_model import LinearRegression,SGDClassifier
+    # from sklearn.linear_model import LinearRegression,SGDClassifier
 
-    SGDClf = SGDClassifier(max_iter = 1000, tol=1e-3)
-    SGDClf.fit(X_train,Y_train)
+    # SGDClf = SGDClassifier(max_iter = 1000, tol=1e-3)
+    # SGDClf.fit(X_train,Y_train)
 
+    from sklearn.metrics import r2_score
+
+    r2_scores = []
+    
+    for rates in lr:
+        obj = Linear_models_CK.GradientDescentCK(rates,1000)
+        obj.fit(X_train,Y_train)
+        print("Regression Coefficients:")
+        print(obj.B)
+        Y_pred = obj.predict(X_test)
+        r2_scores.append(r2_score(Y_pred,Y_test)) 
+
+    print("r2_scores:")
+    print(r2_scores)
 
 if __name__ == '__main__':
     main()
