@@ -20,11 +20,14 @@ def main():
     X = df.iloc[:,0:17].values
     Y = df.iloc[:,16].values
 
+    from sklearn.preprocessing import StandardScaler
+    trans = StandardScaler()
+    X = trans.fit_transform(X)
+
     from sklearn.model_selection import train_test_split
     X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.2,random_state=0)
 
     from sklearn.metrics import r2_score
-
     
     ridge_mod = Ridge(alpha = rp)
     ridge_mod.fit(X_train,Y_train)
