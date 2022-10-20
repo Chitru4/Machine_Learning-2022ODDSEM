@@ -10,8 +10,8 @@ with warnings.catch_warnings():
 from sklearn.linear_model import RidgeCV,LassoCV
 
 clf = RidgeCV(alphas=[1e-3, 1e-2, 1e-1, 1]).fit(X, y)
-print(clf.score(X, y))
+print("Score for Ridge:",clf.score(X, y))
 
 reg = LassoCV(cv=5, random_state=0).fit(X, y)
-print(reg.score(X, y))
+print("Score for Lasso:",reg.score(X, y))
 reg.predict(X[:1,])
